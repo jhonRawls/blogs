@@ -7,20 +7,20 @@
 
 
 
-    <meta name="description" content="eureka是什么eureka  eureka怎么用eureka高可用">
+    <meta name="description" content="eureka是什么 eureka是Netflix开源的服务注册于发现的组件,Spring Cloud体系中集成了Eureka(拿来主义),Eureka又可以细分为两个,一个是Eureka Server,一个是Eureka Client.想象一下如果没有eureka注册中心,各个服务的地址,服务的上线和下线的状态配置在每个服务端,服务之间的续约全部配置在客户端硬性编码,这种配置会极大的影响服务的可伸">
 <meta name="keywords" content="Spring Cloud,Eureka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eureka">
 <meta property="og:url" content="http://yoursite.com/2019/05/14/eureka/index.html">
 <meta property="og:site_name" content="blogs">
-<meta property="og:description" content="eureka是什么eureka  eureka怎么用eureka高可用">
+<meta property="og:description" content="eureka是什么 eureka是Netflix开源的服务注册于发现的组件,Spring Cloud体系中集成了Eureka(拿来主义),Eureka又可以细分为两个,一个是Eureka Server,一个是Eureka Client.想象一下如果没有eureka注册中心,各个服务的地址,服务的上线和下线的状态配置在每个服务端,服务之间的续约全部配置在客户端硬性编码,这种配置会极大的影响服务的可伸">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/Netflix-Eureka-d1.png">
-<meta property="og:updated_time" content="2019-05-16T13:36:36.382Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_architecture.png">
+<meta property="og:updated_time" content="2019-05-22T13:43:16.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Eureka">
-<meta name="twitter:description" content="eureka是什么eureka  eureka怎么用eureka高可用">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/Netflix-Eureka-d1.png">
+<meta name="twitter:description" content="eureka是什么 eureka是Netflix开源的服务注册于发现的组件,Spring Cloud体系中集成了Eureka(拿来主义),Eureka又可以细分为两个,一个是Eureka Server,一个是Eureka Client.想象一下如果没有eureka注册中心,各个服务的地址,服务的上线和下线的状态配置在每个服务端,服务之间的续约全部配置在客户端硬性编码,这种配置会极大的影响服务的可伸">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_architecture.png">
 
 
 
@@ -147,7 +147,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/Netflix-Eureka-d1.png" alt="Eureka">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_architecture.png" alt="Eureka">
         </span>
     </div>
     
@@ -165,7 +165,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 13 个字)
+                    6 分钟 读完 (大约 879 个字)
                 </span>
                 
                 
@@ -178,8 +178,27 @@
             
         </h1>
         <div class="content">
-            <h1 id="eureka是什么"><a href="#eureka是什么" class="headerlink" title="eureka是什么"></a>eureka是什么</h1><p>eureka </p>
-<h1 id="eureka怎么用"><a href="#eureka怎么用" class="headerlink" title="eureka怎么用"></a>eureka怎么用</h1><h2 id="eureka高可用"><a href="#eureka高可用" class="headerlink" title="eureka高可用"></a>eureka高可用</h2>
+            <h1 id="eureka是什么"><a href="#eureka是什么" class="headerlink" title="eureka是什么"></a>eureka是什么</h1><p> eureka是Netflix开源的服务注册于发现的组件,Spring Cloud体系中集成了Eureka(拿来主义),Eureka又可以细分为两个,一个是Eureka Server,一个是Eureka Client.想象一下如果没有eureka注册中心,各个服务的地址,服务的上线和下线的状态配置在每个服务端,服务之间的续约全部配置在客户端硬性编码,这种配置会极大的影响服务的可伸缩性,不利于服务的快速的扩展。<br><a id="more"></a></p>
+<h1 id="eureka怎么用"><a href="#eureka怎么用" class="headerlink" title="eureka怎么用"></a>eureka怎么用</h1><p>为了快速展示demo,可以从<a href="https://start.spring.io/" target="_blank" rel="noopener">start.spring.io</a>导出项目,添加eureka server(eureka service) 或者Eureka Discovery(eureka client)依赖即可,默认导出的项目中没有包含配置文件,我们在resources文件夹中添加application.yml配置文件(spring 的项目遵循约定由于配置的设计范式,启动的时候会扫描resources文件夹下相关的配置文件,并且注入属性)</p>
+<h2 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h2><p>EurekaApplication启动类上面增加注解@EnableEurekaServer来表示该服务是注册中心服务</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@EnableEurekaServer</span></span><br><span class="line"><span class="hljs-meta">@SpringBootApplication</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EurekaApplication</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>application.yml文件中增加如下配置信息,为了避免报错(单机版)先将这些属性禁用<br><figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">eureka:</span></span><br><span class="line"><span class="hljs-attr">  client:</span></span><br><span class="line">    <span class="hljs-comment">#默认情况下服务会将自己注册到eureka注册中心</span></span><br><span class="line"><span class="hljs-attr">    register-with-eureka:</span> <span class="hljs-literal">false</span></span><br><span class="line">    <span class="hljs-comment">#从eureka注册中心同步注册信息</span></span><br><span class="line"><span class="hljs-attr">    fetch-registry:</span> <span class="hljs-literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>这样一个简单的eureka 服务就搭建好了。</p>
+<h2 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h2><p>EurekaClientApplication启动类增加注解@EnableDiscoveryClient来表示开启服务发现功能<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@SpringBootApplication</span></span><br><span class="line"><span class="hljs-meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EurekaClientApplication</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaClientApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">application.yml文件中增加如下配置信息</span></span><br><span class="line"><span class="hljs-attr">eureka:</span></span><br><span class="line"><span class="hljs-attr">  client:</span></span><br><span class="line"><span class="hljs-attr">    serviceUrl:</span></span><br><span class="line">    <span class="hljs-comment">#eureka注册中心地址</span></span><br><span class="line"><span class="hljs-attr">      defaultZone:</span> <span class="hljs-attr">http://127.0.0.1:10080/eureka/</span></span><br></pre></td></tr></table></figure>
+<p>这样一个简单的eureka客户端服务就搭建好了。</p>
+<h1 id="eureka怎么用好"><a href="#eureka怎么用好" class="headerlink" title="eureka怎么用好"></a>eureka怎么用好</h1><p>在生产环境中eureka为了高可用一般会搭建集群,之前由于eureka是单机版本的所以不需要将自己注册到注册中心,也不需要从服务器获取清单,如果是集群的环境需要将这两个(register-with-eureka、fetch-registry)配置的属性改成true,或者不配置(默认为true),eureka的集群是通过副本的形式相互注册,相互同步信息来实现高可用的,具体可以参考官方给出的架构图。<br><img src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_architecture.png" alt="eureka"></p>
+<h2 id="eureka高可用"><a href="#eureka高可用" class="headerlink" title="eureka高可用"></a>eureka高可用</h2><p>其实eureka的高可用是采取服务之间采取相互注册组成的集群,eureka之间是对等的,其中的服务注册信息会定时通过心跳在副本之间同步。<br>将此属性移除,因为需要相互注册并且需要从相邻的副本同步信息<br><figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">eureka:</span></span><br><span class="line"><span class="hljs-attr">  client:</span></span><br><span class="line">    <span class="hljs-comment">#默认情况下服务会将自己注册到eureka注册中心</span></span><br><span class="line"><span class="hljs-attr">    register-with-eureka:</span> <span class="hljs-literal">false</span></span><br><span class="line">    <span class="hljs-comment">#从eureka注册中心同步注册信息</span></span><br><span class="line"><span class="hljs-attr">    fetch-registry:</span> <span class="hljs-literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>增加以下属性<br><figure class="highlight yml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">eureka:</span></span><br><span class="line"><span class="hljs-attr"> client:</span></span><br><span class="line"><span class="hljs-attr">    service-url:</span></span><br><span class="line"><span class="hljs-attr">      defaultZone:</span> <span class="hljs-attr">http://127.0.0.1:10082/eureka/</span></span><br></pre></td></tr></table></figure></p>
+<p>这样我们就可以看到eureka集群搭建好了,如图所示<img src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_replicas.png" alt="eureka集群"></p>
+<p>最后附上相关的代码</p>
+<p>[demo地址]<a href="https://github.com/jhonRawls/spring_cloud_demo" target="_blank" rel="noopener">https://github.com/jhonRawls/spring_cloud_demo</a><br>如有疑问,可以在下面评论区参与评论。</p>
+<p>相关资料</p>
+<p>[1]：<a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a></p>
+<p>[2]：<a href="https://github.com/Netflix/eureka" target="_blank" rel="noopener">https://github.com/Netflix/eureka</a></p>
+<p>[3]：<a href="https://spring.io/guides/gs/service-registration-and-discovery/" target="_blank" rel="noopener">https://spring.io/guides/gs/service-registration-and-discovery/</a></p>
+<p>[4]：<a href="https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html" target="_blank" rel="noopener">https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html</a></p>
+
         </div>
         
         <div class="level is-size-7 is-uppercase">
@@ -369,8 +388,20 @@
         <span class="has-mr-6">2</span>
         <span>eureka怎么用</span>
         </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#eureka高可用">
+        <a class="is-flex" href="#Eureka-Server">
         <span class="has-mr-6">2.1</span>
+        <span>Eureka Server</span>
+        </a></li><li>
+        <a class="is-flex" href="#Eureka-Client">
+        <span class="has-mr-6">2.2</span>
+        <span>Eureka Client</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#eureka怎么用好">
+        <span class="has-mr-6">3</span>
+        <span>eureka怎么用好</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#eureka高可用">
+        <span class="has-mr-6">3.1</span>
         <span>eureka高可用</span>
         </a></li></ul></li></ul>
         </div>
@@ -483,7 +514,7 @@
             
             <a href="/2019/05/14/eureka/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/Netflix-Eureka-d1.png" alt="Eureka">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_architecture.png" alt="Eureka">
                 </p>
             </a>
             
@@ -613,7 +644,7 @@
             
             <a href="/2019/05/14/eureka/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/Netflix-Eureka-d1.png" alt="Eureka">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/jhonRawls/tuchuang/master/2019_05_15_eureka/eureka_architecture.png" alt="Eureka">
                 </p>
             </a>
             
